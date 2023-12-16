@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+BlogdetailView
+{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="card mt-4">
+  <div class="card-header">
+  	{{ post.title }} 
+  </div>
+  <div class="card-body text-center">
+    <h5 class="card-title"> {{ post.title }} </h5>
+    <small>Posted at {{ post.date_added }}</small><br>
+    <p class="card-text">{{post.body}}</p>
+  </div>
+</div>
+</div>
+<hr>
+
+<div class="container">
+
+	<h2>Comments:</h2>
+{% for comment in post.comments.all %}
+
+<div class="card my-2">
+  <div class="card-header">
+   {{ comment.name }}
+
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ comment.body }}</p>
+      <footer class="blockquote-footer">Posted On {{ comment.date_added }}</footer>
+    </blockquote>
+  </div>
+</div>
+{% empty %}
+	<div>
+		<h3>No Comments yet!</h3>
+	</div>
+	{% endfor %}
+
+</div>
+
+
+
+
+<hr>
+<div class="container">
+<form method="post" action=".">
+	{% csrf_token%}
+{{form.as_p}}
+<button class="btn btn-success">Submit</button>
+</form>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}
